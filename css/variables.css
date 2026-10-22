@@ -1,0 +1,54 @@
+/* ============================================================
+   DESIGN TOKENS & VARIABLES
+   ============================================================ */
+:root {
+  --mint: #c48a52;
+  --mint-light: rgba(196, 138, 82, 0.15);
+  --mint-dark: #f0c395;
+  --coral: #e07a5f;
+  --coral-light: rgba(224, 122, 95, 0.15);
+  --gold: #f2cc8f;
+  --navy: #ffffff;
+  --white: rgba(255, 255, 255, 0.14);
+  --g50: rgba(255, 255, 255, 0.05);
+  --g100: rgba(255, 255, 255, 0.09);
+  --g200: rgba(255, 255, 255, 0.22);
+  --g400: rgba(255, 255, 255, 0.65);
+  --g600: rgba(255, 255, 255, 0.85);
+  --g800: #ffffff;
+  --sh-sm: 0 4px 12px rgba(0,0,0,0.15);
+  --sh-md: 0 8px 24px rgba(0,0,0,0.22);
+  --sh-lg: 0 16px 40px rgba(0,0,0,0.35);
+  --r: 14px;
+  --r-sm: 8px;
+  --tr: all .2s ease;
+}
+
+/* Dark mode */
+[data-theme="dark"] {
+  --navy: #ffffff;
+  --white: rgba(20, 15, 12, 0.62);
+  --g50: rgba(0, 0, 0, 0.25);
+  --g100: rgba(0, 0, 0, 0.35);
+  --g200: rgba(255, 255, 255, 0.14);
+  --g400: rgba(255, 255, 255, 0.6);
+  --g600: rgba(255, 255, 255, 0.8);
+  --g800: #ffffff;
+  --mint-light: rgba(196, 138, 82, 0.12);
+  --coral-light: rgba(224, 122, 95, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: #1a120b;
+  color: var(--g800);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background .3s, color .3s;
+}

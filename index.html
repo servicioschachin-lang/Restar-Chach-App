@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#9a5b2f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Restar Chach App">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" type="image/png" href="./logo-blanco.png">
+<link rel="apple-touch-icon" href="./logo-blanco.png">
+<title>Restar Chach App — v3.2</title>
+<link rel="stylesheet" href="css/variables.css">
+
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+<!-- ===== APP ===== -->
+<div id="app">
+  <div class="topbar">
+    <div class="topbar-brand">
+      <button type="button" class="hamburger hamburger-left" onclick="toggleSidebarModules()" title="Módulos" aria-label="Abrir menú de módulos">☰</button>
+      <img src="./logo-blanco.png" style="width:36px;height:36px;object-fit:contain">
+      <h2>Restar Chach App</h2>
+      <span class="version-badge">v3.2</span>
+    </div>
+    <nav class="topbar-nav" id="topbar-nav" aria-hidden="true"></nav>
+    <div class="topbar-actions">
+      <div class="security-indicator"><span class="sec-dot"></span><span>Seguro</span></div>
+      <button class="dark-toggle" onclick="toggleDark()" title="Modo oscuro">🌙</button>
+    </div>
+  </div>
+  <div class="main-content">
+    <main>
+      <div id="page-mesas" class="page"></div>
+      <div id="page-ordenes" class="page"></div>
+      <div id="page-movimientos" class="page"></div>
+      <div id="page-admin" class="page"></div>
+    </main>
+    <nav class="sidebar sidebar-modules" id="sidebar-modules" aria-label="Módulos">
+      <div class="sidebar-section">
+        <div class="sidebar-title">Módulos</div>
+        <div id="sidebar-modules-inner"></div>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<!-- Onboarding -->
+<div class="modal-overlay" id="modal-onboarding">
+  <div class="modal" style="max-width:520px">
+    <div class="modal-header"><h3 class="modal-title">👋 Bienvenido a Restar Chach App</h3><button class="modal-close" onclick="closeModal('modal-onboarding');localStorage.setItem('restar_onboarding_seen','1')">×</button></div>
+    <div class="modal-body">
+      <p style="margin-bottom:10px"><strong>Bienvenido a Restar Chach App.</strong> Puedes configurar y personalizar el sistema (nombre, logo y módulos) desde Configuración.</p>
+      <p style="margin-bottom:10px"><strong>Guía rápida:</strong></p>
+      <ol style="padding-left:18px;line-height:1.7">
+        <li>Abre el menú ☰ para navegar entre módulos.</li>
+        <li>En Mesas selecciona una mesa y agrega productos.</li>
+        <li>Confirma la orden y cobra cuando corresponda.</li>
+        <li>En Movimientos revisa ventas, gastos y caja.</li>
+        <li>En Menú (Administración) crea platillos, bebidas y variantes.</li>
+      </ol>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" onclick="closeModal('modal-onboarding');localStorage.setItem('restar_onboarding_seen','1')">Entendido</button>
+    </div>
+  </div>
+</div>
+
+<!-- Inactivity warning -->
+<div id="inactivity-warning">⏰ <strong>Sesión a punto de cerrarse</strong><br>Mueve el ratón o presiona una tecla para continuar.<div id="inactivity-countdown" style="font-size:1.2rem;font-weight:800;margin-top:5px;color:var(--gold)"></div></div>
+
+<!-- ===== MODALS ===== -->
+<div class="modal-overlay" id="modal-table"><div class="modal" id="modal-table-inner"></div></div>
+<div class="modal-overlay" id="modal-charge"><div class="modal" id="modal-charge-inner"></div></div>
+<div class="modal-overlay" id="modal-receipt"><div class="modal" id="modal-receipt-inner"></div></div>
+<div class="modal-overlay" id="modal-expense"><div class="modal" id="modal-expense-inner"></div></div>
+<div class="modal-overlay" id="modal-product"><div class="modal" id="modal-product-inner"></div></div>
+<div class="modal-overlay" id="modal-user"><div class="modal" id="modal-user-inner"></div></div>
+<div class="modal-overlay" id="modal-worker"><div class="modal" id="modal-worker-inner"></div></div>
+<div class="modal-overlay" id="modal-cashcut"><div class="modal" id="modal-cashcut-inner"></div></div>
+<div class="modal-overlay" id="modal-changelog">
+  <div class="modal" style="max-width:500px">
+    <div class="modal-header"><h3 class="modal-title">📋 Historial de Cambios</h3><button class="modal-close" onclick="closeModal('modal-changelog')">×</button></div>
+    <div class="modal-body">
+      <div class="changelog-entry"><h4>v3.2 — 2025</h4><p>Auditoría expandible: ver items ordenados al cancelar una orden o remover un cliente. Recibo adaptable a 3 formatos (Térmica 80mm, Carta, A4) — el diseño se ajusta automáticamente. Datos completos en todos los formatos.</p></div>
+      <div class="changelog-entry"><h4>v3.1 — 2025</h4><p>Logo oficial integrado. Recibo térmico 80mm completo (imprime igual en papel o PDF). Diseño renovado de mesas y tablero de cocina. Comisión POS con nota clara de que la paga el negocio. Compartir recibo como PDF. Datos completos en comprobante: número de folio, vendedor, fecha completa, hora exacta, detalle por unidad y total.</p></div>
+      <div class="changelog-entry"><h4>v3.0 — 2025</h4><p>IndexedDB como almacenamiento principal. SHA-256 para credenciales. Cifrado AES para datos sensibles. Checksum en exportación. Bitácora de auditoría inmutable. Bloqueo por intentos fallidos. Cierre automático por inactividad. Modo oscuro. Migración automática desde v2.x.</p></div>
+      <div class="changelog-entry"><h4>v2.2 — 2024</h4><p>Estado por platillo en cocina. Cobro por cliente separado. Comisión POS configurable. Historial de precios.</p></div>
+      <div class="changelog-entry"><h4>v2.0 — 2024</h4><p>Módulo de trabajadores y asistencias. Nómina mensual. Contabilidad básica. Reportes personalizados.</p></div>
+      <div class="changelog-entry"><h4>v1.0 — 2023</h4><p>Lanzamiento inicial. Mesas, órdenes, cobros, ventas, egresos.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.togglePw = window.togglePw || function(id,btn){ var el=document.getElementById(id); if(el){ el.type=el.type==='password'?'text':'password'; btn.textContent=el.type==='password'?'👁️':'🙈'; } };
+  window.doLogin = window.doLogin || function(){ document.getElementById('login-error').textContent='⏳ Cargando sistema...'; document.getElementById('login-error').style.display='block'; };
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
